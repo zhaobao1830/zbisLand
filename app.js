@@ -1,12 +1,11 @@
 const Koa = require('koa')
-const Router = require('koa-router')
+const book = require('./api/v1/book')
+const classic = require('./api/v1/classic')
 
 const app = new Koa()
-const router = new Router()
 
-module.exports = {
-  router
-}
+app.use(book.routes())
+app.use(classic.routes())
 
 app.listen(3300)
 

@@ -4,10 +4,12 @@ const Router = require('koa-router')
 class InitManager {
   // 入口方法
   static initCore(app) {
-    InitManager.initLoadRouters(app)
+    InitManager.app = app
+    InitManager.initLoadRouters()
+    InitManager.loadHttpException()
   }
 
-  static initLoadRouters(app) {
+  static initLoadRouters() {
   // 通过requireDirectory获取app/api/v1下的所有routers
   // visit: whenLoadModule 函数
     requireDirectory(module, `${process.cwd()}/app/api`, {
@@ -17,9 +19,14 @@ class InitManager {
   // 用来判断引入的是router
     function whenLoadModule(obj) {
       if(obj instanceof Router) {
-        app.use(obj.routes())
+        InitManager.app.use(obj.routes())
       }
     }
+  }
+
+  static loadHttpException() {
+    const errors = require('./http-exception')
+    global.errs = errors
   }
 }
 

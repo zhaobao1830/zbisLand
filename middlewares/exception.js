@@ -4,6 +4,11 @@ const catchError = async (ctx, next) => {
   try {
     await next() // 有了next，函数调用后就会触发
   } catch (error) {
+    // 如果是生产环境下，就抛出错误
+    const isDev = global.config.environment === 'dev'
+    if (isDev) {
+      throw error
+    }
     // 判断error是否是HttpException
     if (error instanceof HttpException) {
       // 返回的错误信息

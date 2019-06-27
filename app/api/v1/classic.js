@@ -9,7 +9,11 @@ router.post('/v1/:id/classic/latest', (ctx, next) => {
   const body = ctx.request.body
 
   const v = new PositiveIntegerValidator().validate(ctx)
-  ctx.body = 'success'
+  const id = v.get('path.id', parsed = false) // path、query、body、header
+  ctx.body = {
+    msg: 'success',
+    id: v.get('path.id')
+  }
 })
 
 module.exports = router

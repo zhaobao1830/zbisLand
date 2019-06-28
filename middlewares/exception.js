@@ -4,16 +4,20 @@ const catchError = async (ctx, next) => {
   try {
     await next() // 有了next，函数调用后就会触发
   } catch (error) {
+    const isHttpException = error instanceof HttpException
     // 如果是生产环境下，就抛出错误
     const isDev = global.config.environment === 'dev'
     if (isDev) {
-      throw error
+      // throw error
+      ctx.body = {
+
+      }
     }
     // 判断error是否是HttpException
-    if (error instanceof HttpException) {
+    if (isHttpException) {
       // 返回的错误信息
       ctx.body = {
-        mag: error.msg,
+        msg: error.msg,
         error_code: error.errorCode,
         request: `${ctx.method} ${ctx.path}`
       }

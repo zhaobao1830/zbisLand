@@ -27,7 +27,7 @@ const sequelize = new Sequelize(dbName, username, password, {
 
 // 加了这个，才能把定义的模型同步到数据库中
 sequelize.sync({
-  force: true // true会自动运行，通过定义的model修改数据库中的表
+  force: false // true会自动运行，通过定义的model修改数据库中的表
 })
 
 module.exports = {

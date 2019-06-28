@@ -7,11 +7,10 @@ const catchError = async (ctx, next) => {
     const isHttpException = error instanceof HttpException
     // 如果是生产环境下，就抛出错误
     const isDev = global.config.environment === 'dev'
-    if (isDev) {
-      // throw error
-      ctx.body = {
-
-      }
+    console.log(isDev && !isHttpException)
+    if(isDev && !isHttpException){
+      console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy')
+      throw error
     }
     // 判断error是否是HttpException
     if (isHttpException) {

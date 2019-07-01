@@ -34,7 +34,7 @@ User.init({
   }
 }, {
   sequelize,
-  tableName: 'user'
+  tableName: 'user' // 自定义数据库表名
 })
 
 module.exports = {

@@ -78,7 +78,6 @@ class TokenValidator extends LinValidator {
   }
 
   validateType (vals) {
-    console.log(vals)
     if (!vals.body.type) {
       throw new Error('type是必须参数')
     }

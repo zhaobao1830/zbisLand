@@ -20,6 +20,9 @@ router.post('/', async (ctx) => {
     default:
       throw new global.errs.ParameterException('没有相应的处理函数')
   }
+  ctx.body = {
+    token
+  }
 })
 
 async function emailLogin (account, secret) {

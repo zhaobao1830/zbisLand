@@ -1,12 +1,12 @@
 const Router = require('koa-router')
-const router = new Router()
+const router = new Router({
+  prefix: '/v1/classic'
+})
 const { PositiveIntegerValidator } = require('../../validators/validator')
+const { Auth } = require('../../../middlewares/auth')
 
-router.post('/v1/:id/classic/latest', async (ctx, next) => {
-  const path = ctx.params
-  const query = ctx.request.query
-  const headers = ctx.request.header
-  const body = ctx.request.body
+// auth也是一个中间件，一定要写在后面的中间件前面，这样才能阻止后面的中间件
+router.get('/latest', new Auth().m, async (ctx, next) => {
 
   const v = new PositiveIntegerValidator().validate(ctx)
   const id = await v.get('path.id', parsed = false) // path、query、body、header

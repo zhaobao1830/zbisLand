@@ -15,7 +15,7 @@ class User extends Model {
     }
 
     // 验证密码
-    const correct = bcrypt.compareSync(plainPassword, User.password)
+    const correct = bcrypt.compareSync(plainPassword, user.password)
     if (!correct) {
       throw new global.errs.AuthFailed('密码不正确')
     }

@@ -1,6 +1,9 @@
 const util = require('util')
 const axios = require('axios')
-const config = require('../../config/config')
+
+const {User} = require('../models/user')
+const { generateToken } = require('../../core/util')
+const { Auth } = require('../../middlewares/auth')
 
 class WXManager {
   static async codeToToken(code) {
@@ -15,6 +18,16 @@ class WXManager {
     if (errcode){
       throw new global.errs.AuthFailed('openid获取失败:'+errmsg)
     }
+    // openid
+    // 档案 user uid openid 长
+    // openid
+
+    let user = await User.getUserByOpenid(result.data.openid)
+    if(!user){
+      user = await User.registerByOpenid(result.data.openid)
+    }
+    return generateToken(user.id, Auth.USER)
+
   }
 }
 

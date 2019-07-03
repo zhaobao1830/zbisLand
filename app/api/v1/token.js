@@ -13,13 +13,12 @@ const router = new Router({
 router.post('/', async (ctx) => {
   const v = await new TokenValidator().validate(ctx)
   let token
-  console.log(v.get('body.type'))
   switch (v.get('body.type')) {
     case LoginType.USER_EMAIL:
       token = await emailLogin(v.get('body.account'), v.get('body.secret'))
       break;
     case LoginType.USER_MINI_PROGRAM:
-      token = await WXManager.codeToToken('081eE5VE1izSL80xJFUE1KieVE1eE5VS')
+      token = await WXManager.codeToToken('071i4al02JjTcT07xEl0256pl02i4alW')
       break;
     default:
       throw new global.errs.ParameterException('没有相应的处理函数')

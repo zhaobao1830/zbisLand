@@ -6,8 +6,8 @@ const { PositiveIntegerValidator } = require('../../validators/validator')
 const { Auth } = require('../../../middlewares/auth')
 
 // auth也是一个中间件，一定要写在后面的中间件前面，这样才能阻止后面的中间件
-// 可以在new Auth()里传递值，确定访问当前接口需要什么权限
-router.get('/latest', new Auth(2).m, async (ctx, next) => {
+// 可以在new Auth()里传递值，确定访问当前接口需要什么权限  new Auth(2)
+router.get('/latest', new Auth().m, async (ctx, next) => {
 
   const v = new PositiveIntegerValidator().validate(ctx)
   // parsed 是否取解析后的参数，默认为 true

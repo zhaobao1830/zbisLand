@@ -17,3 +17,7 @@ class WXManager {
     }
   }
 }
+
+module.exports = {
+  WXManager
+}

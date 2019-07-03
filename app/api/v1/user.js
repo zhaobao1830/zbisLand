@@ -21,8 +21,9 @@ router.post('/register', async (ctx) => {
     password: v.get('body.password1'),
     nickname: v.get('body.nickname')
   }
-
+   console.log('111111111111111111111')
   const r = await User.create(user)
+  console.log(r)
   success()
 })
 

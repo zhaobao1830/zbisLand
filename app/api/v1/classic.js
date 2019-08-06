@@ -2,10 +2,15 @@ const Router = require('koa-router')
 const router = new Router({
   prefix: '/v1/classic'
 })
-const { Auth } = require('../../../middlewares/auth')
+const {
+  Auth
+} = require('../../../middlewares/auth')
 const {
   Flow
 } = require("../../models/flow")
+const {
+  Art
+} = require('../../models/art')
 
 // auth也是一个中间件，一定要写在后面的中间件前面，这样才能阻止后面的中间件
 // 可以在new Auth()里传递值，确定访问当前接口需要什么权限  new Auth(2)
@@ -25,8 +30,10 @@ router.get('/latest', new Auth().m, async (ctx, next) => {
       ['index', 'DESC']
     ]
   })
-
-  ctx.body = flow
+  const art = await Art.getData(flow.art_id, flow.type)
+  // art.dataValues.index = flow.index
+  art.setDataValue('index', flow.index)
+  ctx.body = art
 })
 
 module.exports = router

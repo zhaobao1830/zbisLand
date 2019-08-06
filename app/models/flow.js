@@ -12,6 +12,7 @@ class Flow extends Model {
 Flow.init({
   index: Sequelize.INTEGER, // 序号:比如第一期、第二期
   art_id: Sequelize.INTEGER, // 是外键，用来关联相应的实体表
+  type: Sequelize.INTEGER
 },
   {
     sequelize,

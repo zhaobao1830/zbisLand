@@ -52,11 +52,22 @@ class Forbbiden extends HttpException{
   }
 }
 
+class LikeError extends HttpException {
+  constructor(props) {
+    super()
+    this.code = 400
+    this.msg = "你已经点赞过"
+    this.error_code = 60001
+  }
+
+}
+
 module.exports = {
   HttpException,
   ParameterException,
   Success,
   NotFound,
   AuthFailed,
-  Forbbiden
+  Forbbiden,
+  LikeError
 }

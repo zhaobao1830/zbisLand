@@ -4,7 +4,6 @@ const catchError = async (ctx, next) => {
   try {
     await next() // 有了next，函数调用后就会触发
   } catch (error) {
-    console.log(error)
     const isHttpException = error instanceof HttpException
     // 如果是生产环境下，就抛出错误
     const isDev = global.config.environment === 'dev'

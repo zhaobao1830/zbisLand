@@ -11,7 +11,9 @@ class Auth {
 
   get m () {
     return async (ctx, next) => {
+      console.log(ctx.req)
       const userToken = basicAuth(ctx.req)
+      console.log(userToken)
       let errMsg = 'token不合法'
 
       if (!userToken || !userToken.name) {

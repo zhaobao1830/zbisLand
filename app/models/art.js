@@ -14,13 +14,13 @@ class Art {
     }
     switch (type) {
       case 100:
-        art = await Movie.findOne(finder)
+        art = await Movie.scope('bh').findOne(finder)
         break;
       case 200:
-        art = await Music.findOne(finder)
+        art = await Music.scope('bh').findOne(finder)
         break;
       case 300:
-        art = await Sentence.findOne(finder)
+        art = await Sentence.scope('bh').findOne(finder)
         break;
       case 400:
         break;

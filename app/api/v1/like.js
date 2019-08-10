@@ -1,4 +1,7 @@
 const Router = require('koa-router')
+const {
+  Favor
+} = require('../../models/favor')
 
 const {
   LikeValidator
@@ -27,7 +30,7 @@ router.post('/cancel', new Auth().m, async ctx => {
   const v = await new LikeValidator().validate(ctx,{
     id:'art_id'
   })
-  await Favor.disLike(v.get('body.art_id'), v.get('body.type'), ctx.auth.uid )
+  await Favor.dislike(v.get('body.art_id'), v.get('body.type'), ctx.auth.uid )
   success()
 })
 

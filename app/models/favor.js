@@ -3,6 +3,10 @@ const {
 } = require('../../core/db')
 
 const {
+  Art
+} = require('./art')
+
+const {
   Sequelize,
   Model
 } = require('sequelize')

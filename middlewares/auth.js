@@ -12,6 +12,7 @@ class Auth {
   get m () {
     return async (ctx, next) => {
       const userToken = basicAuth(ctx.req)
+      let errMsg = 'token不合法'
       if (!userToken || !userToken.name) {
         throw new global.errs.Forbbiden(errMsg)
       }

@@ -14,6 +14,10 @@ const {
 const {
   Favor
 } = require('../../models/favor')
+const {
+  PositiveIntegerValidator
+} = require('../../validators/validator')
+
 // auth也是一个中间件，一定要写在后面的中间件前面，这样才能阻止后面的中间件
 // 可以在new Auth()里传递值，确定访问当前接口需要什么权限  new Auth(2)
 router.get('/latest', new Auth().m, async (ctx, next) => {
@@ -38,6 +42,28 @@ router.get('/latest', new Auth().m, async (ctx, next) => {
   )
   art.setDataValue('index', flow.index)
   art.setDataValue('like_status', likeLatest)
+  ctx.body = art
+})
+
+router.get('/:index/next', new Auth().m, async (ctx) => {
+  const v = new PositiveIntegerValidator().validate(ctx, {
+    id: 'index'
+  })
+  const index = v.get('path.index')
+  const flow = await Flow.findOne({
+    where: {
+      id: index + 1
+    }
+  })
+  if (!Flow) {
+    throw new global.errs.NotFound()
+  }
+  const art = await Art.getData(flow.art_id, flow.type)
+  const likeNext = await Favor.userLikeIt(
+    flow.art_id, flow.type, ctx.auth.uid)
+  art.setDataValue('index', flow.index)
+  art.setDataValue('like_status', likeNext)
+  // art.exclude = ['index','like_status']
   ctx.body = art
 })
 
